@@ -39,6 +39,13 @@ function DynamicHeightTwo:UpdateView(ply)
 	local height = GetViewOffsetValue(ply, "idle_all_01", offset) or ply._height_original or 64
 	local crouch = GetViewOffsetValue(ply, "cidle_pistol", offset) or ply._crouch_original or 28
 
+	-- PAC3 Compatibility: Account for model scaling
+	local modelScale = ply:GetModelScale()
+	if modelScale and modelScale ~= 1 then
+		height = height * modelScale
+		crouch = crouch * modelScale
+	end
+
 	--local crouch2 = GetViewOffsetValue(ply, ply:GetSequenceInfo(ply:GetSequence()).label, offset) or ply._crouch_original or 28
 	--ply:ChatPrint("[Dynamic Height 2] Current Sequence: " .. ply:GetSequenceInfo(ply:GetSequence()).label)
 

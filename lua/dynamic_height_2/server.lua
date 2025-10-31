@@ -68,6 +68,12 @@ local function UpdateViewOffset(ply)
 		pos = pos - plyPos
 		height = math.Round(pos.z + offset, 2)
 	end
+	
+	-- PAC3 Compatibility: Account for model scaling
+	local modelScale = ply:GetModelScale()
+	if modelScale and modelScale ~= 1 then
+		height = height * modelScale
+	end
 
 
 	if ShouldUpdateViewOffset(ply, seq, height) then
